@@ -12,12 +12,12 @@ Code and dataset for the submission "ZipZap: Efficient Training of Language Mode
 ###  1. Download dataset 
 
 #### Step 1. Download dataset from Google drive:
-* [Normal Transaction]
+* [All in one](https://drive.google.com/file/d/1EXMIWEPTuu3bN2gJOaxmEXyDG-AsDUIL/view)
+*
 
 #### Step 2. Unzip dataset under the directory of "ZipZap/Data"
 ``` 
-cd Data;
-unzip ...;
+tar -xvf ZipZap_Data.tar.gz
 ``` 
 
 ### 2. Run the code
