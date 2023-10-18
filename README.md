@@ -13,7 +13,6 @@ Code and dataset for the submission "ZipZap: Efficient Training of Language Mode
 
 #### Step 1. Download dataset from Google drive:
 * [All in one](https://drive.google.com/file/d/1EXMIWEPTuu3bN2gJOaxmEXyDG-AsDUIL/view)
-*
 
 #### Step 2. Unzip dataset under the directory of "ZipZap/Data"
 ``` 
