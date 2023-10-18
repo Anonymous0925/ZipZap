@@ -21,4 +21,4 @@ tar -xvf ZipZap_Data.tar.gz
 
 ### 2. Run the code
 
-Please refer to run_zipzap.sh
+Please refer to ./Model/run_zipzap.sh

@@ -1,5 +1,3 @@
-
-
 python gen_seq.py # construct transaction sequence
 python gen_pretrain_data.py # generate pre-training data
 python gen_finetune_data.py # generate fine-tuning data
