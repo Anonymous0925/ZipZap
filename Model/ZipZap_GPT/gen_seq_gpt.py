@@ -9,16 +9,11 @@ tf.disable_v2_behavior()
 flags = tf.flags
 FLAGS = flags.FLAGS
 
-flags.DEFINE_bool("phisher", False, "whether to include phisher detection dataset.")
-flags.DEFINE_bool("deanon", False, "whether to include de-anonymization dataset.")
-flags.DEFINE_bool("mev", False, "whether to include mev-bot dataset.")
-flags.DEFINE_bool("tornado", False, "whether to include tornado dataset.")
+flags.DEFINE_bool("phisher", True, "whether to include phisher detection dataset.")
 flags.DEFINE_string("data_dir", "../../Data", "data directory.")
-flags.DEFINE_string("dataset", "1000K" , "which dataset to use")
-flags.DEFINE_string("bizdate", None, "the date of running experiments.")
-flags.DEFINE_bool("dup", False, "whether to do transaction duplication")
+flags.DEFINE_string("dataset", "1M", "which dataset to use")
+flags.DEFINE_bool("dup", True, "whether to do transaction duplication")
 
-print("Duplication:", FLAGS.dup)
 
 if FLAGS.bizdate is None:
     raise ValueError("bizdate is required..")
@@ -268,7 +263,6 @@ def main():
     else:
         eoa2seq_agg = seq_generation(eoa2seq_in, eoa2seq_out)
 
-
     if FLAGS.phisher:
         print("Add phishing..")
         phisher_f_in = open(os.path.join(FLAGS.data_dir, "phisher_transaction_in.csv"), "r")
@@ -281,45 +275,6 @@ def main():
             phisher_eoa2seq_agg = seq_generation(phisher_eoa2seq_in, phisher_eoa2seq_out)
 
         eoa2seq_agg.update(phisher_eoa2seq_agg)
-
-    if FLAGS.deanon:
-        print("Add ENS..")
-        dean_f_in = open(os.path.join(FLAGS.data_dir, "dean_trans_in_new.csv"), "r")
-        dean_f_out = open(os.path.join(FLAGS.data_dir, "dean_trans_out_new.csv"), "r")
-        dean_eoa2seq_in, dean_eoa2seq_out = load_data(dean_f_in, dean_f_out)
-
-        if FLAGS.dup:
-            dean_eoa2seq_agg = seq_duplicate(dean_eoa2seq_in, dean_eoa2seq_out)
-        else:
-            dean_eoa2seq_agg = seq_generation(dean_eoa2seq_in, dean_eoa2seq_out)
-
-        eoa2seq_agg.update(dean_eoa2seq_agg)
-
-    if FLAGS.mev:
-        print("Add mev...")
-        mev_f_in = open(os.path.join(FLAGS.data_dir, "filtered_mev_bot_transaction_in.csv"), "r")
-        mev_f_out = open(os.path.join(FLAGS.data_dir, "filtered_mev_bot_transaction_out.csv"), "r")
-        mev_eoa2seq_in, mev_eoa2seq_out = load_data(mev_f_in, mev_f_out)
-
-        if FLAGS.dup:
-            mev_eoa2seq_agg = seq_duplicate(mev_eoa2seq_in, mev_eoa2seq_out)
-        else:
-            mev_eoa2seq_agg = seq_generation(mev_eoa2seq_in, mev_eoa2seq_out)
-
-        eoa2seq_agg.update(mev_eoa2seq_agg)
-
-    if FLAGS.tornado:
-        print("Add tornado...")
-        tornado_in = open("/home/sihao/CLR4ETH/Data/tornado_trans_in_removed.csv", "r")
-        tornado_out = open("/home/sihao/CLR4ETH/Data/tornado_trans_out_removed.csv", "r")
-        tornado_eoa2seq_in, tornado_eoa2seq_out = load_data(tornado_in, tornado_out)
-
-        if FLAGS.dup:
-            tornado_eoa2seq_agg = seq_duplicate(tornado_eoa2seq_in, tornado_eoa2seq_out)
-        else:
-            tornado_eoa2seq_agg = seq_generation(tornado_eoa2seq_in, tornado_eoa2seq_out)
-
-        eoa2seq_agg.update(tornado_eoa2seq_agg)
 
     eoa2seq_agg = feature_bucketization(eoa2seq_agg)
 

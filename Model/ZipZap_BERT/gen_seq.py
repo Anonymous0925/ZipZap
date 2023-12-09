@@ -15,7 +15,6 @@ flags.DEFINE_string("data_dir", "../../Data", "data directory.")
 flags.DEFINE_string("dataset", "1M", "which dataset to use")
 flags.DEFINE_bool("dup", True, "whether to do transaction duplication")
 
-print("Duplication:", FLAGS.dup)
 
 HEADER = 'hash,nonce,block_hash,block_number,transaction_index,from_address,to_address,value,gas,gas_price,input,block_timestamp,max_fee_per_gas,max_priority_fee_per_gas,transaction_type'.split(",")
 
