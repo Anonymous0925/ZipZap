@@ -11,7 +11,7 @@ flags = tf.flags
 FLAGS = flags.FLAGS
 
 flags.DEFINE_bool("phisher", True, "whether to include phisher detection dataset.")
-flags.DEFINE_string("data_dir", "/home/sihao/BERT4ETH/Data", "data directory.")
+flags.DEFINE_string("data_dir", "../../Data", "data directory.")
 flags.DEFINE_string("dataset", "1M", "which dataset to use")
 flags.DEFINE_bool("dup", True, "whether to do transaction duplication")
 
